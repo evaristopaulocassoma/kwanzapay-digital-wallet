@@ -142,3 +142,27 @@
     color: var(--color-foreground);
   }
 }
+
+/* kwanzapay brand theme — dark ink base with electric emerald + kwanza gold */
+:root {
+  --radius: 1rem;
+  --background: oklch(0.16 0.03 250);
+  --foreground: oklch(0.97 0.01 250);
+  --card: oklch(0.21 0.035 252);
+  --card-foreground: oklch(0.97 0.01 250);
+  --popover: oklch(0.21 0.035 252);
+  --popover-foreground: oklch(0.97 0.01 250);
+  --primary: oklch(0.78 0.19 158);
+  --primary-foreground: oklch(0.18 0.04 165);
+  --secondary: oklch(0.27 0.04 252);
+  --secondary-foreground: oklch(0.97 0.01 250);
+  --muted: oklch(0.26 0.03 252);
+  --muted-foreground: oklch(0.72 0.03 250);
+  --accent: oklch(0.83 0.16 85);
+  --accent-foreground: oklch(0.2 0.05 85);
+  --destructive: oklch(0.63 0.22 22);
+  --destructive-foreground: oklch(0.98 0.01 250);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 16%);
+  --ring: oklch(0.78 0.19 158);
+}
