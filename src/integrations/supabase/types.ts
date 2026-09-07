@@ -14,7 +14,171 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      ledger_entries: {
+        Row: {
+          amount: number
+          balance_after: number
+          created_at: string
+          currency: string
+          direction: string
+          id: string
+          transaction_id: string
+          user_id: string
+          wallet_id: string
+        }
+        Insert: {
+          amount: number
+          balance_after: number
+          created_at?: string
+          currency: string
+          direction: string
+          id?: string
+          transaction_id: string
+          user_id: string
+          wallet_id: string
+        }
+        Update: {
+          amount?: number
+          balance_after?: number
+          created_at?: string
+          currency?: string
+          direction?: string
+          id?: string
+          transaction_id?: string
+          user_id?: string
+          wallet_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ledger_entries_transaction_id_fkey"
+            columns: ["transaction_id"]
+            isOneToOne: false
+            referencedRelation: "transactions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ledger_entries_wallet_id_fkey"
+            columns: ["wallet_id"]
+            isOneToOne: false
+            referencedRelation: "wallets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          country: string
+          created_at: string
+          full_name: string | null
+          id: string
+          kyc_status: string
+          phone: string | null
+          preferred_currency: string
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          country?: string
+          created_at?: string
+          full_name?: string | null
+          id: string
+          kyc_status?: string
+          phone?: string | null
+          preferred_currency?: string
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          country?: string
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          kyc_status?: string
+          phone?: string | null
+          preferred_currency?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      transactions: {
+        Row: {
+          amount: number
+          counterparty_user_id: string | null
+          created_at: string
+          currency: string
+          description: string | null
+          fee: number
+          id: string
+          metadata: Json
+          reference: string
+          status: Database["public"]["Enums"]["tx_status"]
+          type: Database["public"]["Enums"]["tx_type"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          counterparty_user_id?: string | null
+          created_at?: string
+          currency: string
+          description?: string | null
+          fee?: number
+          id?: string
+          metadata?: Json
+          reference?: string
+          status?: Database["public"]["Enums"]["tx_status"]
+          type: Database["public"]["Enums"]["tx_type"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          counterparty_user_id?: string | null
+          created_at?: string
+          currency?: string
+          description?: string | null
+          fee?: number
+          id?: string
+          metadata?: Json
+          reference?: string
+          status?: Database["public"]["Enums"]["tx_status"]
+          type?: Database["public"]["Enums"]["tx_type"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      wallets: {
+        Row: {
+          balance: number
+          created_at: string
+          currency: string
+          id: string
+          is_primary: boolean
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          balance?: number
+          created_at?: string
+          currency: string
+          id?: string
+          is_primary?: boolean
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          balance?: number
+          created_at?: string
+          currency?: string
+          id?: string
+          is_primary?: boolean
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +187,14 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      tx_status: "pending" | "processing" | "completed" | "failed" | "cancelled"
+      tx_type:
+        | "deposit"
+        | "withdrawal"
+        | "send"
+        | "receive"
+        | "exchange"
+        | "fee"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +321,9 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      tx_status: ["pending", "processing", "completed", "failed", "cancelled"],
+      tx_type: ["deposit", "withdrawal", "send", "receive", "exchange", "fee"],
+    },
   },
 } as const
