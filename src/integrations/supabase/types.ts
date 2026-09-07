@@ -184,7 +184,94 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      perform_deposit: {
+        Args: {
+          p_amount: number
+          p_currency: string
+          p_description?: string
+          p_user: string
+        }
+        Returns: {
+          amount: number
+          counterparty_user_id: string | null
+          created_at: string
+          currency: string
+          description: string | null
+          fee: number
+          id: string
+          metadata: Json
+          reference: string
+          status: Database["public"]["Enums"]["tx_status"]
+          type: Database["public"]["Enums"]["tx_type"]
+          updated_at: string
+          user_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "transactions"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      perform_transfer: {
+        Args: {
+          p_amount: number
+          p_currency: string
+          p_description?: string
+          p_recipient_email: string
+          p_sender: string
+        }
+        Returns: {
+          amount: number
+          counterparty_user_id: string | null
+          created_at: string
+          currency: string
+          description: string | null
+          fee: number
+          id: string
+          metadata: Json
+          reference: string
+          status: Database["public"]["Enums"]["tx_status"]
+          type: Database["public"]["Enums"]["tx_type"]
+          updated_at: string
+          user_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "transactions"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      request_withdrawal: {
+        Args: {
+          p_amount: number
+          p_currency: string
+          p_destination: string
+          p_user: string
+        }
+        Returns: {
+          amount: number
+          counterparty_user_id: string | null
+          created_at: string
+          currency: string
+          description: string | null
+          fee: number
+          id: string
+          metadata: Json
+          reference: string
+          status: Database["public"]["Enums"]["tx_status"]
+          type: Database["public"]["Enums"]["tx_type"]
+          updated_at: string
+          user_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "transactions"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
     }
     Enums: {
       tx_status: "pending" | "processing" | "completed" | "failed" | "cancelled"
