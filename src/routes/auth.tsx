@@ -48,9 +48,9 @@ function AuthPage() {
     setLoading(false);
     if (error) {
       toast.error("Email ou palavra-passe incorretos.");
-      return;
+    } else {
+      navigate({ to: "/carteira" });
     }
-    navigate({ to: "/carteira" });
   }
 
   async function signUp(e: React.FormEvent) {
@@ -67,10 +67,11 @@ function AuthPage() {
     setLoading(false);
     if (error) {
       toast.error(error.message);
-      return;
+    } else {
+      toast.success("Conta criada. Verifique o seu email para confirmar.");
     }
-    toast.success("Conta criada. Verifique o seu email para confirmar.");
   }
+
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-background px-4 py-12">
