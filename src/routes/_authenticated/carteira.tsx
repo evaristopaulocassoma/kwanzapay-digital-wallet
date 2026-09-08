@@ -260,9 +260,9 @@ function MoneyDialog({
             const value = Number(amount);
             if (!Number.isFinite(value) || value <= 0) {
               toast.error("Indique um valor válido.");
-              return;
+            } else {
+              onSubmit(currency, value, extra.trim());
             }
-            onSubmit(currency, value, extra.trim());
           }}
         >
           <Tabs value={currency} onValueChange={(v) => setCurrency(v as typeof currency)}>
