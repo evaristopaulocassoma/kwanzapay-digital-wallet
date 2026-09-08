@@ -258,7 +258,10 @@ function MoneyDialog({
           onSubmit={(e) => {
             e.preventDefault();
             const value = Number(amount);
-            if (!Number.isFinite(value) || value <= 0) return toast.error("Indique um valor válido.");
+            if (!Number.isFinite(value) || value <= 0) {
+              toast.error("Indique um valor válido.");
+              return;
+            }
             onSubmit(currency, value, extra.trim());
           }}
         >
