@@ -1,11 +1,13 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+const PrivyLogin = lazy(() => import("@/components/PrivyLogin"));
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
@@ -48,9 +50,9 @@ function AuthPage() {
     setLoading(false);
     if (error) {
       toast.error("Email ou palavra-passe incorretos.");
-      return;
+    } else {
+      navigate({ to: "/carteira" });
     }
-    navigate({ to: "/carteira" });
   }
 
   async function signUp(e: React.FormEvent) {
@@ -67,10 +69,11 @@ function AuthPage() {
     setLoading(false);
     if (error) {
       toast.error(error.message);
-      return;
+    } else {
+      toast.success("Conta criada. Verifique o seu email para confirmar.");
     }
-    toast.success("Conta criada. Verifique o seu email para confirmar.");
   }
+
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-background px-4 py-12">
